@@ -36,6 +36,7 @@ namespace MultiQueueModels
             foreach (SimulationCase simulationCase in SimulationTable)
             {
                 for (int i = 0; i < 10000000; i++) ;
+
                 UpdateServersLists(simulationCase.ArrivalTime);
                 Server server = getIdelServer();
 
@@ -98,21 +99,19 @@ namespace MultiQueueModels
             if (idleServers.Count > 0)
             {
                 if (SelectionMethod.Equals(Enums.SelectionMethod.Random))
-                    GetRandomServer(idleServers);            
-
+                    return GetRandomServer(idleServers);            
                 else if (SelectionMethod.Equals(Enums.SelectionMethod.HighestPriority))
-                    idleServer = idleServers[0];  
+                    return idleServers[0];  
                 else
-                    idleServer = GetLeastWorkingServer(idleServers);
+                    return GetLeastWorkingServer(idleServers);
             }
 
             return idleServer;
         }
         private Server GetRandomServer(List<Server> idleServers)
         {
-            Server idleServer;
             Random random = new Random();
-            idleServer = idleServers[random.Next(0, idleServers.Count)];
+            Server idleServer = idleServers[random.Next(0, idleServers.Count)];
             return idleServer;
         }
         private Server GetLeastWorkingServer(List<Server> idleServers)
@@ -175,8 +174,7 @@ namespace MultiQueueModels
 
             // Add Time-Frames Of Server Working Here (Chart)
         }
-        public void FeedSystemFakeData(int numberOfServers, int stoppingNumber, 
-            Enums.SelectionMethod selectionMethod, Enums.StoppingCriteria stoppingCriteria)
+        public void FeedSystemFakeData(int numberOfServers, int stoppingNumber, Enums.SelectionMethod selectionMethod)
         {
             TimeDistribution timeDistribution1;
             TimeDistribution timeDistribution2;
@@ -280,7 +278,6 @@ namespace MultiQueueModels
 
             // General System Data
             StoppingNumber = stoppingNumber;
-            StoppingCriteria = stoppingCriteria;
             SelectionMethod = selectionMethod;
         }
     }

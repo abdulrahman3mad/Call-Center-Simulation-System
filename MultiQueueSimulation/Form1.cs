@@ -23,7 +23,7 @@ namespace MultiQueueSimulation
         private void Form1_Load(object sender, EventArgs e)
         {
             simulationSystem = new SimulationSystem();
-            simulationSystem.FeedSystemFakeData(3, 100, Enums.SelectionMethod.HighestPriority, Enums.StoppingCriteria.NumberOfCustomers);
+            simulationSystem.FeedSystemFakeData(3, 100, Enums.SelectionMethod.HighestPriority);
             simulationSystem.Start();
 
             delayingQueueLength.Text = "Max Queue Length: " + simulationSystem.MaxDelayedQueueLength.ToString();
